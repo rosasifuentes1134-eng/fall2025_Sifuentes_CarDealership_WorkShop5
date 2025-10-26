@@ -53,7 +53,7 @@ public class DealershipFileManager {
     //we need something to open up the file
     public static void saveDealership(Dealership dealership){
         try{
-            FileWriter fw = new FileWriter("src/main/resources/vehicle.csv");
+            FileWriter fw = new FileWriter("src/main/resources/inventory.csv");
 
             String headerRow = String.format("%s|%s|%s %n", dealership.getName(),dealership.getAddress(),
                     dealership.getAddress(), dealership.getPhoneNumber());
