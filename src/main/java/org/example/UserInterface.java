@@ -177,7 +177,7 @@ public class UserInterface {
                 double price = Double.parseDouble(scanner.nextLine());
 
                 Vehicle newVehicle = new Vehicle(vin,year,make, model, vehicleType,color,odometer, price);
-                this.dealership.addVehicle(newVehicle);
+                //this.dealership.addVehicle(newVehicle);
                 System.out.println("Vehicle successfully added!");
 
                 System.out.println("Add another vehicle (y/n):");

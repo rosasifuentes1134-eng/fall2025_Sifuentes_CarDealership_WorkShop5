@@ -34,7 +34,7 @@ public class DealershipFileManager {
                 double price = Double.parseDouble(data[7]);
                 Vehicle vehicle = new Vehicle(vin,year,make,model,vehicleType,color,odometer,price);
 
-                dealership.addVehicle(vehicle);
+                //dealership.addVehicle(vehicle);
 
             }
             reader.close();
