@@ -116,7 +116,7 @@ public class Dealership {
         return vehicles;
     }
     public List<Vehicle> getAllVehicles(){
-      return new ArrayList<>(inventory);
+      return inventory;
     }
     public void addVehicle(Vehicle vehicle){
         inventory.add(vehicle);

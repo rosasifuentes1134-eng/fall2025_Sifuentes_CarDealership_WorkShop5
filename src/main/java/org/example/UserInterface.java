@@ -21,7 +21,6 @@ public class UserInterface {
     private void displayVehicle(List<Vehicle>vehicles){
 
     }
-
     private void init()  {
         DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = fileManager.getDealership();
@@ -50,14 +49,13 @@ public class UserInterface {
                        10.Exit Program
                        """);
 
-                try{
-                    int userInput = scanner.nextInt();
-                }
+
 
             }
         }
 
     }
+
     public void processGetByPriceRequest(){
         boolean isGettingByPrice = true;
 
@@ -121,7 +119,7 @@ public class UserInterface {
                 double price = Double.parseDouble(scanner.nextLine());
 
                 Vehicle newVehicle = new Vehicle(make, model, year, price);
-                this.dealership.addVehicle(newVehicle);
+                //this.dealership.addVehicle(newVehicle);
 
                 System.out.println("Vehicle added successfully!");
 
