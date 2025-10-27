@@ -1,108 +1,101 @@
 package org.example;
 
-import java.io.FileNotFoundException;
-import java.util.InputMismatchException;
+
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-//import org.example.Dealership;
 
-
-//import static sun.tools.jconsole.OutputViewer.init;
- //static Scanner scanner = new Scanner(System.in);
 public class UserInterface {
     private Dealership dealership;
     static Scanner scanner = new Scanner(System.in);
 
 
-
-    public UserInterface() {
-        this.scanner = new Scanner(System.in);
-    }
-
     public void displayVehicle(List<Vehicle> vehicles) {
-        if (vehicles.isEmpty()){
+        if (vehicles.isEmpty()) {
             System.out.println("No vehicles found matching the description");
             System.out.println("Press enter to continue...");
             scanner.nextLine();
-            return;
+
         }
+
     }
 
     private void init() {
         DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = fileManager.getDealership();
     }
-    public void display(){
+
+    public void display() {
         init();
 
-        if (this.dealership == null){
+        if (this.dealership == null) {
             System.out.println("ERROR: failed tp load");
             return;
         }
         boolean isRunning = true;
 
         while (isRunning) {
-            try{
-            System.out.println("Welcome to my Dealership, this is the best place to buy a vehicle");
-            System.out.println("Select from the following options:");
+            try {
+                System.out.println("Welcome to my Dealership, this is the best place to buy a vehicle");
+                System.out.println("Select from the following options:");
 
-            System.out.println("=".repeat(100));
-            System.out.println("""
-                    1. View all vehicles
-                    2. Search for vehicles by price
-                    3. Search for vehicles by make/model
-                    4. Search for vehicle by year
-                    5. Search for vehicle by color
-                    6. Search for vehicle by mileage
-                    7. Search for vehicle by vehicleType
-                    8. Add a vehicle
-                    9. Remove a vehicle
-                    0.Exit Program
-                    """);
-            System.out.println("=".repeat(100));
+                System.out.println("=".repeat(100));
+                System.out.println("""
+                        1. View all vehicles
+                        2. Search for vehicles by price
+                        3. Search for vehicles by make/model
+                        4. Search for vehicle by year
+                        5. Search for vehicle by color
+                        6. Search for vehicle by mileage
+                        7. Search for vehicle by vehicleType
+                        8. Add a vehicle
+                        9. Remove a vehicle
+                        0.Exit Program
+                        """);
+                System.out.println("=".repeat(100));
 
-            int userInput = Integer.parseInt(scanner.nextLine());
+                int userInput = Integer.parseInt(scanner.nextLine());
 
-            switch (userInput) {
-                case 1:
-                    processGetAllVehiclesRequest();
-                    break;
-                case 2:
-                    processGetByPriceRequest();
-                    break;
-                case 3:
-                    processGetByMakeModelRequest();
-                    break;
-                case 4:
-                    processGetByYearRequest();
-                    break;
-                case 5:
-                    processGetByColorRequest();
-                    break;
-                case 6:
-                    processGetByMileageRequest();
-                    break;
-                case 7:
-                    processGetByVehicleTypeRequest();
-                    break;
-                case 8:
-                    processAddVehicleRequest();
-                    break;
-                case 9:
-                    processRemoveVehicleRequest();
-                    break;
-                case 0:
-                    isRunning = false;
-                    System.out.println("Exit. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-                    break;
-            }
+                switch (userInput) {
+                    case 1:
+                        processGetAllVehiclesRequest();
+                        break;
+                    case 2:
+                        processGetByPriceRequest();
+                        break;
+                    case 3:
+                        processGetByMakeModelRequest();
+                        break;
+                    case 4:
+                        processGetByYearRequest();
+                        break;
+                    case 5:
+                        processGetByColorRequest();
+                        break;
+                    case 6:
+                        processGetByMileageRequest();
+                        break;
+                    case 7:
+                        processGetByVehicleTypeRequest();
+                        break;
+                    case 8:
+                        processAddVehicleRequest();
+                        break;
+                    case 9:
+                        processRemoveVehicleRequest();
+                        break;
+                    case 0:
+                        isRunning = false;
+                        System.out.println("Exit. Goodbye!");
+                        break;
+                    default:
+                        System.out.println("Invalid option. Please try again.");
+                        break;
+                }
 
 
-        } catch (Exception ex) {
+            } catch (Exception ex) {
                 System.out.println("Invalid option.Please choose a number provided.");
 
             }
@@ -115,7 +108,7 @@ public class UserInterface {
 
         while (isGettingByPrice) {
             boolean isRunning = true;
-            while(isRunning){
+            while (isRunning) {
                 System.out.println("What is the minimum price of the vehicle you are looking for?");
                 double minPrice = scanner.nextDouble();
                 System.out.println("What is the maximum price of the vehicle you are looking for?");
@@ -138,20 +131,69 @@ public class UserInterface {
 
         while (isGettingByMakeModel) {
 
-                System.out.println("Enter the make of the vehicle you are looking for:");
-                String make = scanner.nextLine();
-                System.out.println("Enter the model of the vehicle you are looking for:");
-                String model = scanner.nextLine();
+            System.out.println("Enter the make of the vehicle you are looking for:");
+            String make = scanner.nextLine();
+            System.out.println("Enter the model of the vehicle you are looking for:");
+            String model = scanner.nextLine();
 
-                List<Vehicle> vehicleList = dealership.getVehicleMakeModel(make, model);
-                displayVehicle(vehicleList);
-                isGettingByMakeModel = false;
+            List<Vehicle> vehicleList = dealership.getVehicleMakeModel(make, model);
+            displayVehicle(vehicleList);
+            isGettingByMakeModel = false;
 
-            }
+        }
     }
+
+    public void processGetByYearRequest() {
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.println("Enter the minimum year of the vehicle you are looking for:");
+            int minYear = Integer.parseInt(scanner.nextLine());
+            System.out.println("Enter the maximum year of the vehicle you are looking for:");
+            int maxYear = Integer.parseInt(scanner.nextLine());
+
+            if (minYear < maxYear) {
+                System.out.printf("Here are all the vehicles between %d and %d", minYear, maxYear);
+                List<Vehicle> vehicleList = dealership.getVehicleByPrice(minYear, maxYear);
+                displayVehicle(vehicleList);
+                isRunning = false;
+            } else {
+                System.out.println("The minimum price must be less than the maximum price.Please try again.");
+            }
+        }
+
+    }
+    public void processGetByColorRequest(){
+        System.out.println("Enter color:");
+        String color = scanner.nextLine();
+        displayVehicle(dealership.getVehicleColor(color));
+
+    }
+    public void processGetByMileageRequest() {
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.println("Enter minimum mileage:");
+            int minMileage = Integer.parseInt(scanner.nextLine());
+            System.out.println("Enter maximum mileage:");
+            int maxMileage = Integer.parseInt(scanner.nextLine());
+            if (minMileage > maxMileage) {
+                System.out.println("Invalid mileage range.");
+            } else {
+                isRunning = false;
+                displayVehicle(dealership.getVehicleMileage(minMileage, maxMileage));
+            }
+        }
+
+    }
+    public void processGetByVehicleTypeRequest() {
+        System.out.println("Enter vehicle type:");
+        String vehicleType = scanner.nextLine();
+        displayVehicle(dealership.getVehicleByType(vehicleType));
+
+    }
+
+
     public void processGetAllVehiclesRequest() {
-        System.out.printf("%40s %20s %40s\n"," ", "All vehicles in Inventory", " ");
-        List<Vehicle>vehicleList = dealership.getAllVehicles();
+       displayVehicle(dealership.getAllVehicles());
 
 
     }
@@ -178,7 +220,7 @@ public class UserInterface {
                 System.out.println("Enter vehicle price:");
                 double price = Double.parseDouble(scanner.nextLine());
 
-                Vehicle newVehicle = new Vehicle(vin,year,make, model, vehicleType,color,odometer, price);
+                Vehicle newVehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
                 //this.dealership.addVehicle(newVehicle);
                 System.out.println("Vehicle successfully added!");
 
@@ -194,11 +236,12 @@ public class UserInterface {
             }
         }
     }
-    public void processRemoveVehicleRequest(){
+
+    public void processRemoveVehicleRequest() {
         System.out.println("Enter thr vin number to remove:");
         int vin = Integer.parseInt(scanner.nextLine());
-        for (Vehicle vehicle: dealership.getAllVehicles()){
-            if (vehicle.getVin()==vin){
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vehicle.getVin() == vin) {
                 System.out.println("Vehicle found:");
                 System.out.printf("%-5d|%-6d|%-10s|%-10s|%-15s|%-10s|%-10d|$%-10.2f\n",
                         vehicle.getVin(),
@@ -210,42 +253,11 @@ public class UserInterface {
                         vehicle.getOdometer(),
                         vehicle.getPrice());
 
-
                 System.out.println("vehicle remove successfully!");
                 scanner.nextLine();
             }
         }
 
-
     }
-    public void processGetByYearRequest(){
-        boolean isRunning = true;
-        while(isRunning){
-            System.out.println("Enter the minimum year of the vehicle you are looking for:");
-            int minYear = Integer.parseInt(scanner.nextLine());
-            System.out.println("Enter the maximum year of the vehicle you are looking for:");
-            int maxYear = Integer.parseInt( scanner.nextLine());
-
-            if (minYear < maxYear) {
-                System.out.printf("Here are all the vehicles between %d and %d", minYear, maxYear);
-                List<Vehicle> vehicleList = dealership.getVehicleByPrice(minYear, maxYear);
-                displayVehicle(vehicleList);
-                isRunning = false;
-            } else {
-                System.out.println("The minimum price must be less than the maximum price.Please try again.");
-            }
-        }
-
-    }
-    public void processGetByColorRequest(){
-
-    }
-    public void processGetByMileageRequest(){
-
-    }
-    public void processGetByVehicleTypeRequest(){
-
-    }
-
 
 }
