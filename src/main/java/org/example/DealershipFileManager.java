@@ -54,6 +54,7 @@ public class DealershipFileManager {
     public static void saveDealership(Dealership dealership){
         try{
             FileWriter fw = new FileWriter("src/main/resources/inventory.csv");
+            BufferedWriter writer = new BufferedWriter(fw);
 
             String headerRow = String.format("%s|%s|%s %n", dealership.getName(),dealership.getAddress(),
                     dealership.getAddress(), dealership.getPhoneNumber());

@@ -11,11 +11,13 @@ import java.util.Scanner;
 //import static sun.tools.jconsole.OutputViewer.init;
  //static Scanner scanner = new Scanner(System.in);
 public class UserInterface {
+    private Dealership dealership;
     static Scanner scanner = new Scanner(System.in);
 
-    private Dealership dealership;
+
 
     public UserInterface() {
+        this.scanner = new Scanner(System.in);
     }
 
     public void displayVehicle(List<Vehicle> vehicles) {
@@ -29,7 +31,7 @@ public class UserInterface {
 
     private void init() {
         DealershipFileManager fileManager = new DealershipFileManager();
-        this.dealership = DealershipFileManager.getDealership();
+        this.dealership = fileManager.getDealership();
     }
     public void display(){
         init();
