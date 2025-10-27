@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
-
+import org.example.Dealership;
 
 
 //import static sun.tools.jconsole.OutputViewer.init;
@@ -28,7 +28,7 @@ public class UserInterface {
     }
 
     private void init() {
-        //DealershipFileManager fileManager = new DealershipFileManager();
+        DealershipFileManager fileManager = new DealershipFileManager();
         this.dealership = DealershipFileManager.getDealership();
     }
     public void display(){
