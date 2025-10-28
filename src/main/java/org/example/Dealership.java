@@ -9,7 +9,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phoneNumber;
-    private List<Vehicle> inventory;
+    private List<Vehicle> inventory = new ArrayList<>();
 
     public Dealership(String name, String address, String phoneNumber) {
         this.name = name;

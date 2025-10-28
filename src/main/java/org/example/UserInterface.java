@@ -12,18 +12,17 @@ public class UserInterface {
 
 
     public void displayVehicle(List<Vehicle> vehicles) {
-        if (vehicles.isEmpty()) {
-            System.out.println("No vehicles found matching the description");
-            System.out.println("Press enter to continue...");
-            scanner.nextLine();
+
+        for (Vehicle vehicle : vehicles) {
+            System.out.printf("%d|%d|%s|%s|%s|%s|%d|%f %n", vehicle.getVin(), vehicle.getYear(), vehicle.getMake()
+                    , vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
 
         }
 
     }
 
     private void init() {
-        DealershipFileManager fileManager = new DealershipFileManager();
-        this.dealership = fileManager.getDealership();
+        this.dealership = DealershipFileManager.getDealership();
     }
 
     public void display() {
@@ -54,6 +53,7 @@ public class UserInterface {
                         0.Exit Program
                         """);
                 System.out.println("=".repeat(100));
+
 
                 int userInput = Integer.parseInt(scanner.nextLine());
 
@@ -95,7 +95,11 @@ public class UserInterface {
                 }
 
 
-            } catch (Exception ex) {
+            }
+            catch(NumberFormatException ex){
+                System.out.println("Number format.");
+            }
+            catch (Exception ex) {
                 System.out.println("Invalid option.Please choose a number provided.");
 
             }
@@ -110,14 +114,15 @@ public class UserInterface {
             boolean isRunning = true;
             while (isRunning) {
                 System.out.println("What is the minimum price of the vehicle you are looking for?");
-                double minPrice = scanner.nextDouble();
+                double minPrice = Double.parseDouble(scanner.nextLine());
                 System.out.println("What is the maximum price of the vehicle you are looking for?");
-                double maxPrice = scanner.nextDouble();
+                double maxPrice = Double.parseDouble(scanner.nextLine());
 
                 if (minPrice < maxPrice) {
-                    System.out.printf("Here are all the vehicles between %d and %d", minPrice, maxPrice);
+                    System.out.printf("Here are all the vehicles between %f and %f", minPrice, maxPrice);
                     List<Vehicle> vehicleList = dealership.getVehicleByPrice(minPrice, maxPrice);
                     displayVehicle(vehicleList);
+                    isRunning = false;
                     isGettingByPrice = false;
                 } else {
                     System.out.println("The minimum price must be less than the maximum price.Please try again.");
@@ -194,8 +199,6 @@ public class UserInterface {
 
     public void processGetAllVehiclesRequest() {
        displayVehicle(dealership.getAllVehicles());
-
-
     }
 
     public void processAddVehicleRequest() {
