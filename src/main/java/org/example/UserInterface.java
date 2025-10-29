@@ -224,7 +224,8 @@ public class UserInterface {
                 double price = Double.parseDouble(scanner.nextLine());
 
                 Vehicle newVehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
-                //this.dealership.addVehicle(newVehicle);
+                dealership.addVehicle(newVehicle);
+                DealershipFileManager.saveDealership(dealership);
                 System.out.println("Vehicle successfully added!");
 
                 System.out.println("Add another vehicle (y/n):");
@@ -238,6 +239,7 @@ public class UserInterface {
                 System.out.println("Error:" + e.getMessage());
             }
         }
+
     }
 
     public void processRemoveVehicleRequest() {
@@ -256,10 +258,12 @@ public class UserInterface {
                         vehicle.getOdometer(),
                         vehicle.getPrice());
 
+                dealership.removeVehicle(vehicle);
                 System.out.println("vehicle remove successfully!");
                 scanner.nextLine();
             }
         }
+        DealershipFileManager.saveDealership(dealership);
 
     }
 
