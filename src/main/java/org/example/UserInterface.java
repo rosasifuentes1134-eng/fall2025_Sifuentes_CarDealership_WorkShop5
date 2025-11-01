@@ -2,9 +2,13 @@ package org.example;
 
 
 
+import org.example.contract.Contract;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserInterface {
     private Dealership dealership;
@@ -50,6 +54,8 @@ public class UserInterface {
                         7. Search for vehicle by vehicleType
                         8. Add a vehicle
                         9. Remove a vehicle
+                        10. Sales contract
+                        11. Lease contract
                         0.Exit Program
                         """);
                 System.out.println("=".repeat(100));
@@ -84,6 +90,10 @@ public class UserInterface {
                         break;
                     case 9:
                         processRemoveVehicleRequest();
+                        break;
+                    case 10:
+                        break;
+                    case 11:
                         break;
                     case 0:
                         isRunning = false;
@@ -264,6 +274,14 @@ public class UserInterface {
             }
         }
         DealershipFileManager.saveDealership(dealership);
+
+
+
+    }
+    public void processGetSaleContractRequest(){
+
+    }
+    public void processGetLeaseContractRequest(){
 
     }
 

@@ -1,17 +1,19 @@
 package org.example.contract;
 
+import org.example.Vehicle;
+
 public abstract class Contract {
     private String DateOfContract;
     private String customerName;
     private String customerEmail;
-    private boolean vehicleSold;
+    private Vehicle vehicle;
 
 
-    public Contract(String dateOfContract, String customerName, String customerEmail, boolean vehicleSold) {
+    public Contract(String dateOfContract, String customerName, String customerEmail, Vehicle vehicle) {
         DateOfContract = dateOfContract;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
-        this.vehicleSold = vehicleSold;
+        this.vehicle = vehicle;
 
     }
 
@@ -39,12 +41,12 @@ public abstract class Contract {
         this.customerEmail = customerEmail;
     }
 
-    public boolean isVehicleSold() {
-        return vehicleSold;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleSold(boolean vehicleSold) {
-        this.vehicleSold = vehicleSold;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public abstract double getTotalPrice();
