@@ -3,6 +3,8 @@ package org.example;
 
 
 import org.example.contract.Contract;
+import org.example.contract.LeaseContract;
+import org.example.contract.SalesContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,7 @@ public class UserInterface {
                         8. Add a vehicle
                         9. Remove a vehicle
                         10. Sales contract
-                        11. Lease contract
+                        11. Lease contracts
                         0.Exit Program
                         """);
                 System.out.println("=".repeat(100));
@@ -92,8 +94,10 @@ public class UserInterface {
                         processRemoveVehicleRequest();
                         break;
                     case 10:
+                        processGetSaleContractRequest();
                         break;
                     case 11:
+                        processGetLeaseContractRequest();
                         break;
                     case 0:
                         isRunning = false;
@@ -279,10 +283,84 @@ public class UserInterface {
 
     }
     public void processGetSaleContractRequest(){
+        System.out.println("Enter date (YYYY-MM-DD:");
+        String dateOfContract = scanner.nextLine();
+
+        System.out.println("Enter customer name:");
+        String customerName = scanner.nextLine();
+
+        System.out.println("Enter customer email:");
+        String customerEmail = scanner.nextLine();
+
+        System.out.println("Enter Vin of vehicle to lease:");
+        String vin = scanner.nextLine();
+
+        Vehicle vehicle = dealership.getVehicleByVin(vin);
+        if (vehicle == null){
+            System.out.println("vehicle not found!");
+            return;
+        }
+        System.out.println("Is this a financial sale (Yes/No)? ");
+        boolean financialOption = scanner.nextLine().equalsIgnoreCase("Yes");
+
+        double salesTaxAmount = vehicle.getPrice() * 0.05;
+        double recordingFee = 100.0;
+        double processingFee = (vehicle.getPrice()>= 10000) ? 495.0 : 295.0;
+        SalesContract contract = new SalesContract(
+                dateOfContract,
+                customerName,
+                customerEmail,
+                vehicle,
+                salesTaxAmount,
+                recordingFee,
+                processingFee,
+                financialOption
+        );
+        contracts.add(contract);
+        System.out.println("Sales contract successfully created!");
 
     }
     public void processGetLeaseContractRequest(){
+        System.out.println("Enter date (YYYY-MM-DD):");
+        String dateOfContract = scanner.nextLine();
+
+        System.out.println("Enter customer name:");
+        String customerName = scanner.nextLine();
+
+        System.out.println("Enter customer email:");
+        String customerEmail = scanner.nextLine();
+
+        System.out.println("Enter Vin of vehicle to lease:");
+        String vin = scanner.nextLine();
+
+        Vehicle vehicle = dealership.getVehicleByVin(vin);
+        if (vehicle == null){
+            System.out.println("vehicle not found!");
+            return;
+        }
+        double endingValue = vehicle.getPrice() * 0.50;
+        double leaseFee = vehicle.getPrice() * 0.07;
+
+        LeaseContract contract = new LeaseContract(
+                dateOfContract,
+                customerName,
+                customerEmail,
+                vehicle,
+                endingValue,
+                leaseFee
+        );
+
+        contracts.add(contract);
 
     }
+    private List<Contract> contracts = new ArrayList<>();
+
+    public void addContract(Contract contract){
+        contracts.add(contract);
+    }
+    public List<Contract>getAllContracts(){
+        return contracts;
+    }
+
 
 }
