@@ -212,7 +212,12 @@ public class UserInterface {
 
 
     public void processGetAllVehiclesRequest() {
-       displayVehicle(dealership.getAllVehicles());
+        List<Vehicle> vehicles = dealership.getAllVehicles();
+        if (vehicles==null|| vehicles.isEmpty()){
+            System.out.println("No vehicles found.");
+            return;
+        }
+        displayVehicle(vehicles);
     }
 
     public void processAddVehicleRequest() {
@@ -293,7 +298,7 @@ public class UserInterface {
         String customerEmail = scanner.nextLine();
 
         System.out.println("Enter Vin of vehicle to lease:");
-        String vin = scanner.nextLine();
+        int vin = scanner.nextInt();
 
         Vehicle vehicle = dealership.getVehicleByVin(vin);
         if (vehicle == null){
@@ -316,6 +321,7 @@ public class UserInterface {
                 processingFee,
                 financialOption
         );
+        ContractDataManager.saveContract(contract);
         contracts.add(contract);
         System.out.println("Sales contract successfully created!");
 
@@ -331,7 +337,7 @@ public class UserInterface {
         String customerEmail = scanner.nextLine();
 
         System.out.println("Enter Vin of vehicle to lease:");
-        String vin = scanner.nextLine();
+        int vin = scanner.nextInt();
 
         Vehicle vehicle = dealership.getVehicleByVin(vin);
         if (vehicle == null){
@@ -349,7 +355,7 @@ public class UserInterface {
                 endingValue,
                 leaseFee
         );
-
+        ContractDataManager.saveContract(contract);
         contracts.add(contract);
 
     }

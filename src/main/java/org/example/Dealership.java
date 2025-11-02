@@ -127,15 +127,13 @@ public class Dealership {
         inventory.remove(vehicle);
 
     }
-    public List<Vehicle> getVehicleByVin(String vin){
+    public Vehicle getVehicleByVin(int vin){
         for (Vehicle vehicle: inventory){
-            if (vehicle.getVin().equalsIgnoreCase(vin)){
-                return inventory;
+            if (vehicle.getVin() == vin){
+                return vehicle;
             }
         }
         return null;
     }
-
-
 }
 
