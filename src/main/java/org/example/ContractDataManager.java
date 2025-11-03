@@ -24,6 +24,7 @@ public class ContractDataManager {
                 writeLeaseContract(writer,(LeaseContract) contract);
 
             }
+            saveContract(contract);
             writer.close();
             fw.close();
             System.out.println("Contract saved");
@@ -54,6 +55,8 @@ public class ContractDataManager {
                 (contract.isFinanceOption()?"Yes": "No") +"|"+
                 contract.getMonthlyPayment();
 
+        saveContract(contract);
+
         try {
             writer.write(line);
             writer.newLine();
@@ -80,6 +83,8 @@ public class ContractDataManager {
                 contract.getLeaseFee() +"|"+
                 contract.getTotalPrice() +"|"+
                 contract.getMonthlyPayment();
+
+        saveContract(contract);
 
         try {
             writer.write(line);

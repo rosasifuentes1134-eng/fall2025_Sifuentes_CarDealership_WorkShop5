@@ -38,6 +38,7 @@ public class DealershipFileManager {
                 dealership.addVehicle(vehicle);
 
             }
+            reader.readLine();
             reader.close();
             fr.close();
 
