@@ -15,7 +15,7 @@ public class ContractDataManager {
        List<Contract> contracts = new ArrayList<>();
 
         try {
-            FileWriter fw = new FileWriter("src/main/resources/contract.csv");
+            FileWriter fw = new FileWriter("src/main/resources/contract.csv",true);
             BufferedWriter writer = new BufferedWriter(fw);
 
             if (contract instanceof SalesContract){
@@ -24,7 +24,7 @@ public class ContractDataManager {
                 writeLeaseContract(writer,(LeaseContract) contract);
 
             }
-            saveContract(contract);
+
             writer.close();
             fw.close();
             System.out.println("Contract saved");
@@ -55,7 +55,7 @@ public class ContractDataManager {
                 (contract.isFinanceOption()?"Yes": "No") +"|"+
                 contract.getMonthlyPayment();
 
-        saveContract(contract);
+
 
         try {
             writer.write(line);
@@ -83,8 +83,6 @@ public class ContractDataManager {
                 contract.getLeaseFee() +"|"+
                 contract.getTotalPrice() +"|"+
                 contract.getMonthlyPayment();
-
-        saveContract(contract);
 
         try {
             writer.write(line);
