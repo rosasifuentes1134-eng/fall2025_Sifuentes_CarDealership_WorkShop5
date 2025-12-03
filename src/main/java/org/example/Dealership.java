@@ -19,6 +19,7 @@ public class Dealership {
     }
     public Dealership(){
 
+
     }
 
     public String getName() {

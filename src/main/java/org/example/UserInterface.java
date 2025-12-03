@@ -19,11 +19,20 @@ public class UserInterface {
 
     public void displayVehicle(List<Vehicle> vehicles) {
 
+        System.out.println("\n========== Available Vehicles ==========");
         for (Vehicle vehicle : vehicles) {
-            System.out.printf("%d|%d|%s|%s|%s|%s|%d|%f %n", vehicle.getVin(), vehicle.getYear(), vehicle.getMake()
-                    , vehicle.getModel(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
-
+            System.out.printf("VIN: %d | %d %s %s %s\n",
+                    vehicle.getVin(),
+                    vehicle.getYear(),
+                    vehicle.getMake(),
+                    vehicle.getModel(),
+                    vehicle.getVehicleType());
+            System.out.printf("Color: %s | Mileage: %,d | Price: $%,.2f\n\n",
+                    vehicle.getColor(),
+                    vehicle.getOdometer(),
+                    vehicle.getPrice());
         }
+        System.out.println("========================================\n");
 
     }
 
@@ -213,8 +222,14 @@ public class UserInterface {
 
 
     public void processGetAllVehiclesRequest() {
+
         List<Vehicle> vehicles = dealership.getAllVehicles();
-        if (vehicles == null || vehicles.isEmpty()) {
+
+        if (vehicles == null) {
+            System.out.println("Error: Vehicle system not initialized.");
+            return;
+        }
+        if (vehicles.isEmpty()) {
             System.out.println("No vehicles found.");
             return;
         }

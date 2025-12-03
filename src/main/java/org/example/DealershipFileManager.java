@@ -33,8 +33,8 @@ public class DealershipFileManager {
                 String color = data[5];
                 int odometer = Integer.parseInt(data[6]);
                 double price = Double.parseDouble(data[7]);
-                Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
 
+                Vehicle vehicle = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
                 dealership.addVehicle(vehicle);
 
             }
@@ -42,9 +42,10 @@ public class DealershipFileManager {
             reader.close();
             fr.close();
 
-        } catch (FileNotFoundException ex) {
-        } catch (IOException ex) {
+       // } catch (FileNotFoundException ex) {
+       // } catch (IOException ex) {
         } catch (Exception ex) {
+
         }
         return dealership;
 
@@ -77,6 +78,7 @@ public class DealershipFileManager {
 
             fw.close();
         } catch (Exception ex) {
+            System.out.println("Error saving:" );
 
         }
 
